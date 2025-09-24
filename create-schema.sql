@@ -1,0 +1,1 @@
+CREATE SCHEMA IF NOT EXISTS meu_caixa;
