@@ -1,0 +1,39 @@
+#file: noinspection SpringBootApplicationYaml
+server:
+  port: 8091
+  undertow:
+    always-set-keep-alive: false
+    threads:
+      io: 8
+      worker: 20
+
+spring:
+  liquibase:
+    enabled: true
+    default-schema: meu_caixa
+
+  jpa:
+    open-in-view: false
+
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5432/meucaixa
+    username: admin
+    password: admin
+    hikari:
+      poolName: SpringBootHikariCP
+      schema: meu_caixa
+      maxLifetime: '1800000'  # 30 minutos
+      connectionTimeout: '5000'  # 5 segundos
+      idleTimeout: '10000'  # 10 segundos
+      minimumIdle: '5'
+      maximumPoolSize: '15'
+
+logging:
+  level:
+    root: INFO
+    com.manuela.meucaixa: TRACE
+    org.springframework: INFO
+    org.hibernate.SQL: WARN
+    org.hibernate.type: WARN
+
