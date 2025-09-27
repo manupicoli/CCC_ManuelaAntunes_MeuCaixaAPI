@@ -14,7 +14,7 @@ public class FinancialRecord {
 
     private Long id;
 
-    private String type;
+    private FinancialRecordType type;
 
     private BigDecimal amount;
 

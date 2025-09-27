@@ -13,7 +13,7 @@ public class Notification {
 
     private String content;
 
-    private String status;
+    private NotificationStatus status;
 
     private String recipientEmail;
 

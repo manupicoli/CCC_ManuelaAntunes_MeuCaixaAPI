@@ -1,5 +1,6 @@
 package com.manuela.meucaixa.adapters.outbound.entities;
 
+import com.manuela.meucaixa.domain.FinancialRecordType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
@@ -10,6 +11,9 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -28,7 +32,8 @@ public class JpaFinancialRecordEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private FinancialRecordType type;
 
     private BigDecimal amount;
 

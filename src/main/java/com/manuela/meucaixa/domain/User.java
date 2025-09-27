@@ -9,7 +9,7 @@ public class User {
 
     private Long id;
 
-    private String role;
+    private UserRole role;
 
     private String name;
 
