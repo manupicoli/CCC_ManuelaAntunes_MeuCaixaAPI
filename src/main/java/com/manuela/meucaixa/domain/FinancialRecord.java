@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -25,4 +27,6 @@ public class FinancialRecord {
     private Category category;
 
     private Customer customer;
+
+    private List<Notification>  notifications = new ArrayList<>();
 }

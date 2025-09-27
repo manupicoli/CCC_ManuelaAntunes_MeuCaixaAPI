@@ -3,6 +3,9 @@ package com.manuela.meucaixa.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 public class Customer {
@@ -12,4 +15,8 @@ public class Customer {
     private String name;
 
     private String code;
+
+    private List<Category> categories = new ArrayList<>();
+
+    private List<User> users = new ArrayList<>();
 }
