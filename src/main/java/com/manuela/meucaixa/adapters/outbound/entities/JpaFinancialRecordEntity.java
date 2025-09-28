@@ -1,6 +1,6 @@
 package com.manuela.meucaixa.adapters.outbound.entities;
 
-import com.manuela.meucaixa.domain.FinancialRecordType;
+import com.manuela.meucaixa.domain.financialrecord.FinancialRecordType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
@@ -14,6 +14,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -24,8 +26,10 @@ import java.util.List;
 
 @Data
 @Entity
+@Builder
 @NoArgsConstructor
-@Table(name = "finacial_record")
+@AllArgsConstructor
+@Table(name = "financial_record")
 public class JpaFinancialRecordEntity {
 
     @Id

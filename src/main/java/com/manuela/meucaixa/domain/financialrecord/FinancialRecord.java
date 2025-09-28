@@ -1,7 +1,10 @@
-package com.manuela.meucaixa.domain;
+package com.manuela.meucaixa.domain.financialrecord;
 
+import com.manuela.meucaixa.domain.Notification;
 import com.manuela.meucaixa.domain.category.Category;
 import com.manuela.meucaixa.domain.customer.Customer;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class FinancialRecord {
 
     private Long id;
