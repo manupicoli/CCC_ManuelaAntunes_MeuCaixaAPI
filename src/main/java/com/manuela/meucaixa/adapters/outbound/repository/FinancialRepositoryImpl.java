@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
-public class FinancialRecordImpl implements FinancialRecordRepository {
+public class FinancialRepositoryImpl implements FinancialRecordRepository {
 
     private final JpaFinancialRecordRepository jpaFinancialRecordRepository;
 
@@ -30,14 +30,14 @@ public class FinancialRecordImpl implements FinancialRecordRepository {
     @Override
     public FinancialRecord findById(Long id) {
         final var financialRecordEntity = jpaFinancialRecordRepository.findById(id);
-        return financialRecordEntity.map(FinancialRecordImpl::getFinancialRecord).orElse(null);
+        return financialRecordEntity.map(FinancialRepositoryImpl::getFinancialRecord).orElse(null);
     }
 
     @Override
     public List<FinancialRecord> findAll() {
         return jpaFinancialRecordRepository.findAll()
             .stream()
-            .map(FinancialRecordImpl::getFinancialRecord)
+            .map(FinancialRepositoryImpl::getFinancialRecord)
             .toList();
     }
 
