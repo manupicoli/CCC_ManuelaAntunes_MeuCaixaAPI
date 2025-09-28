@@ -1,10 +1,15 @@
-package com.manuela.meucaixa.domain;
+package com.manuela.meucaixa.domain.category;
 
+import com.manuela.meucaixa.domain.Customer;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Category {
 
     private Long id;

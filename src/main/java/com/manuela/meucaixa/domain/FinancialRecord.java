@@ -1,5 +1,6 @@
 package com.manuela.meucaixa.domain;
 
+import com.manuela.meucaixa.domain.category.Category;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
