@@ -1,15 +1,15 @@
 package com.manuela.meucaixa.adapters.outbound.repository;
 
 import com.manuela.meucaixa.adapters.outbound.entities.JpaCustomerEntity;
-import com.manuela.meucaixa.domain.User;
+import com.manuela.meucaixa.domain.user.User;
 import com.manuela.meucaixa.domain.category.Category;
 import com.manuela.meucaixa.domain.customer.Customer;
 import com.manuela.meucaixa.domain.customer.CustomerRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CustomerRepositoryImpl implements CustomerRepository {
 
     private final JpaCustomerRepository jpaCustomerRepository;

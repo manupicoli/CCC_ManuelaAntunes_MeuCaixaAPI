@@ -9,12 +9,12 @@ import com.manuela.meucaixa.domain.category.Category;
 import com.manuela.meucaixa.domain.customer.Customer;
 import com.manuela.meucaixa.domain.financialrecord.FinancialRecord;
 import com.manuela.meucaixa.domain.financialrecord.FinancialRecordRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class FinancialRepositoryImpl implements FinancialRecordRepository {
 
     private final JpaFinancialRecordRepository jpaFinancialRecordRepository;

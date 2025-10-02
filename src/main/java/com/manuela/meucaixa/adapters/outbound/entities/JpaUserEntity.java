@@ -1,6 +1,6 @@
 package com.manuela.meucaixa.adapters.outbound.entities;
 
-import com.manuela.meucaixa.domain.UserRole;
+import com.manuela.meucaixa.domain.user.UserRole;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;

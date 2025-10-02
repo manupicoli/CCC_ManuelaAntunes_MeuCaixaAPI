@@ -5,11 +5,11 @@ import com.manuela.meucaixa.adapters.outbound.entities.JpaNotificationEntity;
 import com.manuela.meucaixa.domain.financialrecord.FinancialRecord;
 import com.manuela.meucaixa.domain.notification.Notification;
 import com.manuela.meucaixa.domain.notification.NotificationRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class NotificationRepositoryImpl implements NotificationRepository {
 
     private JpaNotificationRepository jpaNotificationRepository;

@@ -1,4 +1,4 @@
-package com.manuela.meucaixa.domain;
+package com.manuela.meucaixa.domain.user;
 
 import com.manuela.meucaixa.domain.customer.Customer;
 import lombok.AllArgsConstructor;
