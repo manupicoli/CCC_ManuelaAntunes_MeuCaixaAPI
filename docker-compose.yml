@@ -1,6 +1,6 @@
 version: '3.9'
 services:
-  db:
+  postgres:
     image: postgres:16
     container_name: pgsql-meucaixa-local
     environment:
@@ -12,6 +12,30 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./create-schema.sql:/docker-entrypoint-initdb.d/create-schema.sql
+    networks:
+      - meucaixa
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.3.3
+    container_name: keycloak
+    command: ["start-dev"]
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_DB=postgres
+      - KC_DB_URL=jdbc:postgresql://postgres:5432/keycloak
+      - KC_DB_USERNAME=admin
+      - KC_DB_PASSWORD=admin
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - meucaixa
+
+networks:
+  meucaixa:
+    driver: bridge
 
 volumes:
   postgres_data:
