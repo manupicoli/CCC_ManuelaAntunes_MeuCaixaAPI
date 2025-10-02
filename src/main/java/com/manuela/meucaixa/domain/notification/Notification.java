@@ -1,4 +1,4 @@
-package com.manuela.meucaixa.domain;
+package com.manuela.meucaixa.domain.notification;
 
 import com.manuela.meucaixa.domain.financialrecord.FinancialRecord;
 import lombok.AllArgsConstructor;

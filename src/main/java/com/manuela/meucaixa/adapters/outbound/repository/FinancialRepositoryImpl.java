@@ -4,7 +4,7 @@ import com.manuela.meucaixa.adapters.outbound.entities.JpaCategoryEntity;
 import com.manuela.meucaixa.adapters.outbound.entities.JpaCustomerEntity;
 import com.manuela.meucaixa.adapters.outbound.entities.JpaFinancialRecordEntity;
 import com.manuela.meucaixa.adapters.outbound.entities.JpaNotificationEntity;
-import com.manuela.meucaixa.domain.Notification;
+import com.manuela.meucaixa.domain.notification.Notification;
 import com.manuela.meucaixa.domain.category.Category;
 import com.manuela.meucaixa.domain.customer.Customer;
 import com.manuela.meucaixa.domain.financialrecord.FinancialRecord;

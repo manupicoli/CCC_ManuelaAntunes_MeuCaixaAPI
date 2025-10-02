@@ -1,6 +1,6 @@
 package com.manuela.meucaixa.domain.financialrecord;
 
-import com.manuela.meucaixa.domain.Notification;
+import com.manuela.meucaixa.domain.notification.Notification;
 import com.manuela.meucaixa.domain.category.Category;
 import com.manuela.meucaixa.domain.customer.Customer;
 import lombok.AllArgsConstructor;

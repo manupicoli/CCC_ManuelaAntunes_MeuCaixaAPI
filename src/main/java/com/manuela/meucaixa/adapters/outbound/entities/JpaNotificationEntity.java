@@ -1,6 +1,6 @@
 package com.manuela.meucaixa.adapters.outbound.entities;
 
-import com.manuela.meucaixa.domain.NotificationStatus;
+import com.manuela.meucaixa.domain.notification.NotificationStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;

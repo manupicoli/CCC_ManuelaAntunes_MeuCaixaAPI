@@ -1,4 +1,4 @@
-package com.manuela.meucaixa.domain;
+package com.manuela.meucaixa.domain.notification;
 
 public enum NotificationStatus {
     PENDING,
