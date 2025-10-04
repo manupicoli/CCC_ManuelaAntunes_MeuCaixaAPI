@@ -1,5 +1,6 @@
 package com.manuela.meucaixa;
 
+import com.manuela.meucaixa.adapters.outbound.keycloak.KeycloakProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -9,7 +10,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @EnableFeignClients
 @EnableWebSecurity
 @SpringBootApplication
-@EnableConfigurationProperties({CorsProperties.class})
+@EnableConfigurationProperties({
+		CorsProperties.class,
+		KeycloakProperties.class
+})
 public class MeucaixaApplication {
 
 	public static void main(String[] args) {
