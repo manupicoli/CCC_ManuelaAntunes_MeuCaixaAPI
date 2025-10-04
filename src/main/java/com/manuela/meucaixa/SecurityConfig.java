@@ -20,7 +20,7 @@ public class SecurityConfig {
     private final CorsProperties corsProperties;
 
     @Bean
-    SecurityFilterChain springSecurityFilterChain(final HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception {
         return http
             .csrf(csrf -> csrf.disable())
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
