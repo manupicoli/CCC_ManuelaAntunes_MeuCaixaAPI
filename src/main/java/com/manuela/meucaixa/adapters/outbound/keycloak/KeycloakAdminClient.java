@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @FeignClient(
     name = "keycloak-admin",
-    url = "&{application.keycloak.base-url}",
+    url = "${application.keycloak.base-url}",
     configuration = KeycloakBearerTokenConfig.class
 )
 public interface KeycloakAdminClient {
