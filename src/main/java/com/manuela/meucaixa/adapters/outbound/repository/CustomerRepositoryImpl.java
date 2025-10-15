@@ -1,14 +1,14 @@
 package com.manuela.meucaixa.adapters.outbound.repository;
 
 import com.manuela.meucaixa.adapters.outbound.entities.JpaCustomerEntity;
-import com.manuela.meucaixa.domain.user.User;
-import com.manuela.meucaixa.domain.category.Category;
 import com.manuela.meucaixa.domain.customer.Customer;
 import com.manuela.meucaixa.domain.customer.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 @RequiredArgsConstructor
 public class CustomerRepositoryImpl implements CustomerRepository {
 
@@ -53,33 +53,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
             .id(jpaCustomerEntity.getId())
             .name(jpaCustomerEntity.getName())
             .code(jpaCustomerEntity.getCode())
-            .users(getUsers(jpaCustomerEntity))
-            .categories(getCategories(jpaCustomerEntity))
             .build();
-    }
-
-    private static List<Category> getCategories(final JpaCustomerEntity customer) {
-        return customer.getCategories()
-            .stream()
-            .map(c -> Category.builder()
-                .id(c.getId())
-                .title(c.getTitle())
-                .description(c.getDescription())
-                .isDefault(c.getIsDefault())
-                .build())
-            .toList();
-    }
-
-    private static List<User> getUsers(final JpaCustomerEntity customer) {
-        return customer.getUsers()
-            .stream()
-            .map(c -> User.builder()
-                .id(c.getId())
-                .name(c.getName())
-                .role(c.getRole())
-                .email(c.getEmail())
-                .phone(c.getPhone())
-                .build())
-            .toList();
     }
 }

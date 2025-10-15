@@ -1,13 +1,14 @@
 package com.manuela.meucaixa.domain.user;
+
 import java.util.List;
 
 public interface UserRepository {
 
-    User save(User user);
+    Users save(Users user);
 
-    User findById(Long id);
+    Users findById(Long id);
 
-    List<User> findAll();
+    List<Users> findAll();
 
     void deleteById(Long id);
 

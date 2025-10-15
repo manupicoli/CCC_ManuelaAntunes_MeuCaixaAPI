@@ -39,8 +39,8 @@ CREATE TABLE notification (
     CONSTRAINT fk_notification_financial_record FOREIGN KEY(financial_record_id) REFERENCES financial_record(id)
 );
 
-CREATE TABLE "user" (
-    id BIGSERIAL PRIMARY KEY,
+CREATE TABLE users (
+    id UUID PRIMARY KEY,
     role VARCHAR(15) NOT NULL,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,

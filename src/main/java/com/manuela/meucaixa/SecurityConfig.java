@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private static final String[] PUBLIC_ENDPOINTS = {};
+    private static final String[] PUBLIC_ENDPOINTS = {"/v1/user/create"};
 
     private final CorsProperties corsProperties;
 
