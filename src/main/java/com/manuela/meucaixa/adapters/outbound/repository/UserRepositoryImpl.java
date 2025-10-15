@@ -5,6 +5,7 @@ import com.manuela.meucaixa.adapters.outbound.entities.JpaUserEntity;
 import com.manuela.meucaixa.domain.customer.Customer;
 import com.manuela.meucaixa.domain.user.Users;
 import com.manuela.meucaixa.domain.user.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +17,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     private final JpaUserRepository jpaUserRepository;
 
+    @Transactional
     @Override
     public Users save(Users user) {
         final var entity = getUserEntity(user);
@@ -24,6 +26,7 @@ public class UserRepositoryImpl implements UserRepository {
         return getUser(saved);
     }
 
+    @Transactional
     @Override
     public Users findById(Long id) {
         return jpaUserRepository.findById(id)
@@ -31,6 +34,7 @@ public class UserRepositoryImpl implements UserRepository {
             .orElse(null);
     }
 
+    @Transactional
     @Override
     public List<Users> findAll() {
         return jpaUserRepository.findAll()
