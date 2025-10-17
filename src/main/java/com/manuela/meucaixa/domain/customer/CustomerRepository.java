@@ -11,4 +11,6 @@ public interface CustomerRepository {
 
     void deleteById(Long id);
 
+    Customer findByCode(String code);
+
 }

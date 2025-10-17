@@ -1,6 +1,7 @@
 package com.manuela.meucaixa.application.usecase.user;
 
 import com.manuela.meucaixa.adapters.outbound.keycloak.KeycloakFacade;
+import com.manuela.meucaixa.application.service.CustomerCodeGeneratorService;
 import com.manuela.meucaixa.application.usecase.DomainException;
 import com.manuela.meucaixa.domain.customer.Customer;
 import com.manuela.meucaixa.domain.customer.CustomerRepository;
@@ -19,12 +20,13 @@ class DefaultCreateUserUseCase implements CreateUserUseCase {
 
     private final KeycloakFacade keycloakFacade;
     private final UserRepository userRepository;
+    private final CustomerCodeGeneratorService service;
     private final CustomerRepository customerRepository;
 
     @Override
     public void execute(final CreateUserRequest req) {
         try {
-            final var customerCode = "TODO";
+            final var customerCode = service.generateUniqueCode();
             final var userId = keycloakFacade.createNewUser(req.email(),
                     req.firstName(),
                     req.lastName(),

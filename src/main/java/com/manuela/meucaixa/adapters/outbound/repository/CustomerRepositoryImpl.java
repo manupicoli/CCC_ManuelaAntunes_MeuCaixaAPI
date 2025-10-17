@@ -40,6 +40,11 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         jpaCustomerRepository.deleteById(id);
     }
 
+    public Customer findByCode(String code) {
+        final var customerEntity = jpaCustomerRepository.findByCode(code);
+        return customerEntity.map(CustomerRepositoryImpl::getCustomer).orElse(null);
+    }
+
     private JpaCustomerEntity getCustomerEntity(Customer customer) {
         return JpaCustomerEntity.builder()
             .id(customer.getId())
