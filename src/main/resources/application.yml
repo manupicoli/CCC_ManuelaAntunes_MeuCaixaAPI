@@ -10,7 +10,7 @@ server:
 spring:
   liquibase:
     enabled: true
-    default-schema: meu_caixa
+    default-schema: ${DATABASE_SCHEMA}
 
   jpa:
     open-in-view: false
@@ -19,16 +19,16 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/meucaixa
+          issuer-uri: ${KEYCLOAK_JWT_ISSUER_URI}
 
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/meucaixa
-    username: admin
-    password: admin
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
     hikari:
       poolName: SpringBootHikariCP
-      schema: meu_caixa
+      schema: ${DATABASE_SCHEMA}
       maxLifetime: '1800000'  # 30 minutos
       connectionTimeout: '5000'  # 5 segundos
       idleTimeout: '10000'  # 10 segundos
@@ -44,13 +44,15 @@ logging:
     org.hibernate.type: WARN
 
 application:
-
   cors:
     allowed-origins:
       - "http://localhost:5173"
 
   keycloak:
-    base-url: "http://localhost:8080"
-    master-username: admin
-    master-password: admin
-    client-id: admin-cli
+    base-url: ${KEYCLOAK_BASE_URL}
+    master-username: ${KEYCLOAK_USERNAME}
+    master-password: ${KEYCLOAK_PASSWORD}
+    client-id: ${KEYCLOAK_CLIENT_ID}
+    web-client-id: ${KEYCLOAK_WEB_CLIENT_ID}
+    web-client-secret: ${KEYCLOAK_WEB_CLIENT_SECRET}
+    scope: ${KEYCLOAK_SCOPE}

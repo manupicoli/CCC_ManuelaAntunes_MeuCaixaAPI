@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import static org.apache.commons.lang3.StringUtils.substringAfterLast;
@@ -19,6 +21,19 @@ public class KeycloakFacade {
     private static final String TYPE_PASSWORD = "password";
 
     private final KeycloakAdminClient keycloakAdminClient;
+    private final KeycloakProperties props;
+
+    public KeycloakTokenResponse login(final String username, final String password) {
+        Map<String, String> form = new HashMap<>();
+        form.put("grant_type", TYPE_PASSWORD);
+        form.put("client_id", props.webClientId());
+        form.put("client_secret", props.webClientSecret());
+        form.put("username", username);
+        form.put("password", password);
+        form.put("scope", props.scope());
+
+        return keycloakAdminClient.login(form);
+    }
 
     public UUID createNewUser(final String username,
                               final String firstName,

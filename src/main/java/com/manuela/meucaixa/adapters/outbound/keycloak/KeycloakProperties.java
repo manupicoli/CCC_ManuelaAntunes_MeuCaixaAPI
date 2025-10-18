@@ -10,7 +10,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public record KeycloakProperties(@NotBlank @URL String baseUrl,
                                  @NotBlank String masterUsername,
                                  @NotBlank String masterPassword,
-                                 @NotBlank String clientId) {
+                                 @NotBlank String clientId,
+                                 @NotBlank String webClientId,
+                                 @NotBlank String webClientSecret,
+                                 @NotBlank String scope) {
 
 }
 
