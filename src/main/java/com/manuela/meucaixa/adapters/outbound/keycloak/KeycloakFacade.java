@@ -43,6 +43,7 @@ public class KeycloakFacade {
                               final String password) {
 
         final var req = CreateKeycloakUserRequest.builder()
+            .email(username)
             .username(username)
             .firstName(firstName)
             .lastName(lastName)
