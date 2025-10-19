@@ -28,6 +28,7 @@ class DefaultLoginUseCase implements LoginUseCase {
 
             return LoginResponse.builder()
                 .id(user.getId())
+                .customerCode(user.getCustomer().getCode())
                 .accessToken(res.accessToken())
                 .refreshToken(res.refreshToken())
                 .expiresIn(res.expiresIn())

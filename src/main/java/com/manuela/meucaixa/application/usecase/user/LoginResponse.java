@@ -7,6 +7,7 @@ import java.util.UUID;
 
 @Builder
 public record LoginResponse(UUID id,
+                            String customerCode,
                             String accessToken,
                             String refreshToken,
                             BigDecimal expiresIn,
