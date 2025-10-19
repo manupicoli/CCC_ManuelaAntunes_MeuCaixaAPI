@@ -48,6 +48,13 @@ public class UserRepositoryImpl implements UserRepository {
         jpaUserRepository.deleteById(id);
     }
 
+    @Override
+    public Users findByEmail(String email) {
+        return jpaUserRepository.findByEmail(email)
+            .map(UserRepositoryImpl::getUser)
+            .orElse(null);
+    }
+
     private JpaUserEntity getUserEntity(final Users u) {
         return JpaUserEntity.builder()
             .id(u.getId())

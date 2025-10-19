@@ -3,9 +3,11 @@ package com.manuela.meucaixa.application.usecase.user;
 import lombok.Builder;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Builder
-public record LoginResponse(String accessToken,
+public record LoginResponse(UUID id,
+                            String accessToken,
                             String refreshToken,
                             BigDecimal expiresIn,
                             BigDecimal refreshExpiresIn) {
