@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 @RequiredArgsConstructor
@@ -28,7 +29,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Transactional
     @Override
-    public Users findById(Long id) {
+    public Users findById(UUID id) {
         return jpaUserRepository.findById(id)
             .map(UserRepositoryImpl::getUser)
             .orElse(null);
@@ -43,11 +44,13 @@ public class UserRepositoryImpl implements UserRepository {
             .toList();
     }
 
+    @Transactional
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(UUID id) {
         jpaUserRepository.deleteById(id);
     }
 
+    @Transactional
     @Override
     public Users findByEmail(String email) {
         return jpaUserRepository.findByEmail(email)

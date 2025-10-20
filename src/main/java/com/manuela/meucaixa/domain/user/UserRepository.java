@@ -1,16 +1,17 @@
 package com.manuela.meucaixa.domain.user;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface UserRepository {
 
     Users save(Users user);
 
-    Users findById(Long id);
+    Users findById(UUID id);
 
     List<Users> findAll();
 
-    void deleteById(Long id);
+    void deleteById(UUID id);
 
     Users findByEmail(String email);
 

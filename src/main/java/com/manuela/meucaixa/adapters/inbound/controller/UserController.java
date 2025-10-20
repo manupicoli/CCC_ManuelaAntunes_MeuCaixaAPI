@@ -1,10 +1,6 @@
 package com.manuela.meucaixa.adapters.inbound.controller;
 
-import com.manuela.meucaixa.application.usecase.user.CreateUserUseCase;
-import com.manuela.meucaixa.application.usecase.user.LoginRequest;
-import com.manuela.meucaixa.application.usecase.user.LoginResponse;
-import com.manuela.meucaixa.application.usecase.user.LoginUseCase;
-import com.manuela.meucaixa.application.usecase.user.CreateUserRequest;
+import com.manuela.meucaixa.application.usecase.user.*;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,8 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 class UserController implements UserControllerApi {
 
-    private final CreateUserUseCase createUserUseCase;
     private final LoginUseCase loginUseCase;
+    private final CreateUserUseCase createUserUseCase;
+    private final GetUserDetailsUseCase getUserDetailsUseCase;
 
     @Override
     public LoginResponse login(final LoginRequest loginRequest) {
@@ -24,5 +21,10 @@ class UserController implements UserControllerApi {
     @Override
     public void createUser(final CreateUserRequest request) {
         createUserUseCase.execute(request);
+    }
+
+    @Override
+    public GetUserDetailsResponse getUserDetails() {
+        return getUserDetailsUseCase.execute();
     }
 }
