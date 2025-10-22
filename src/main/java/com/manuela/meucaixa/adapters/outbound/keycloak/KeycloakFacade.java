@@ -20,8 +20,9 @@ public class KeycloakFacade {
     private static final String PATH_SEPARATOR = "/";
     private static final String TYPE_PASSWORD = "password";
 
-    private final KeycloakAdminClient keycloakAdminClient;
     private final KeycloakProperties props;
+    private final KeycloakClient keycloakClient;
+    private final KeycloakAdminClient keycloakAdminClient;
 
     public KeycloakTokenResponse login(final String username, final String password) {
         Map<String, String> form = new HashMap<>();
@@ -32,7 +33,7 @@ public class KeycloakFacade {
         form.put("password", password);
         form.put("scope", props.scope());
 
-        return keycloakAdminClient.login(form);
+        return keycloakClient.login(form);
     }
 
     public UUID createNewUser(final String username,
