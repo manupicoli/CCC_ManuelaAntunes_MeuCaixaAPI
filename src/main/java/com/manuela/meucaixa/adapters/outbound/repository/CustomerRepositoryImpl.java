@@ -3,14 +3,16 @@ package com.manuela.meucaixa.adapters.outbound.repository;
 import com.manuela.meucaixa.adapters.outbound.entities.JpaCustomerEntity;
 import com.manuela.meucaixa.domain.customer.Customer;
 import com.manuela.meucaixa.domain.customer.CustomerRepository;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-@RequiredArgsConstructor
-public class CustomerRepositoryImpl implements CustomerRepository {
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+class CustomerRepositoryImpl implements CustomerRepository {
 
     private final JpaCustomerRepository jpaCustomerRepository;
 
@@ -22,9 +24,9 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
-    public Customer findById(Long id) {
+    public Optional<Customer> findById(Long id) {
         final var customerEntity = jpaCustomerRepository.findById(id);
-        return customerEntity.map(CustomerRepositoryImpl::getCustomer).orElse(null);
+        return customerEntity.map(CustomerRepositoryImpl::getCustomer);
     }
 
     @Override
@@ -40,9 +42,9 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         jpaCustomerRepository.deleteById(id);
     }
 
-    public Customer findByCode(String code) {
+    public Optional<Customer> findByCode(String code) {
         final var customerEntity = jpaCustomerRepository.findByCode(code);
-        return customerEntity.map(CustomerRepositoryImpl::getCustomer).orElse(null);
+        return customerEntity.map(CustomerRepositoryImpl::getCustomer);
     }
 
     private JpaCustomerEntity getCustomerEntity(Customer customer) {

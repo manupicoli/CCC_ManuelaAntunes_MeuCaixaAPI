@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
@@ -31,9 +32,9 @@ class FinancialRepositoryImpl implements FinancialRecordRepository {
     }
 
     @Override
-    public FinancialRecord findById(Long id) {
+    public Optional<FinancialRecord> findById(Long id) {
         final var financialRecordEntity = jpaFinancialRecordRepository.findById(id);
-        return financialRecordEntity.map(FinancialRepositoryImpl::getFinancialRecord).orElse(null);
+        return financialRecordEntity.map(FinancialRepositoryImpl::getFinancialRecord);
     }
 
     @Override

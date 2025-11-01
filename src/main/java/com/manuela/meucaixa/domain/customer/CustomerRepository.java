@@ -1,16 +1,17 @@
 package com.manuela.meucaixa.domain.customer;
 import java.util.List;
+import java.util.Optional;
 
 public interface CustomerRepository {
 
     Customer save(Customer customer);
 
-    Customer findById(Long id);
+    Optional<Customer> findById(Long id);
 
     List<Customer> findAll();
 
     void deleteById(Long id);
 
-    Customer findByCode(String code);
+    Optional<Customer> findByCode(String code);
 
 }

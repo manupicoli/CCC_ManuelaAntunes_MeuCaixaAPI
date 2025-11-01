@@ -1,11 +1,12 @@
 package com.manuela.meucaixa.domain.notification;
 import java.util.List;
+import java.util.Optional;
 
 public interface NotificationRepository {
 
     Notification save(Notification notification);
 
-    Notification findById(Long id);
+    Optional<Notification> findById(Long id);
 
     List<Notification> findAll();
 

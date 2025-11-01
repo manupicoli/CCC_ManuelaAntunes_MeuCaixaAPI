@@ -18,11 +18,8 @@ class DefaultGetUserDetailsUseCase implements GetUserDetailsUseCase{
 
     @Override
     public GetUserDetailsResponse execute() {
-        final var user = userRepository.findById(UUID.fromString(currentUser.subject()));
-
-        if (user == null) {
-            throw new DomainException("Usuário não encontrado");
-        }
+        final var user = userRepository.findById(UUID.fromString(currentUser.subject()))
+            .orElseThrow(() -> new DomainException("User not found"));
 
         return GetUserDetailsResponse.builder()
             .name(user.getName())

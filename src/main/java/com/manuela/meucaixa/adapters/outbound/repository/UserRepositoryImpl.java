@@ -6,15 +6,17 @@ import com.manuela.meucaixa.domain.customer.Customer;
 import com.manuela.meucaixa.domain.user.Users;
 import com.manuela.meucaixa.domain.user.UserRepository;
 import jakarta.transaction.Transactional;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-@RequiredArgsConstructor
-public class UserRepositoryImpl implements UserRepository {
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+class UserRepositoryImpl implements UserRepository {
 
     private final JpaUserRepository jpaUserRepository;
 
@@ -29,10 +31,9 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Transactional
     @Override
-    public Users findById(UUID id) {
+    public Optional<Users> findById(UUID id) {
         return jpaUserRepository.findById(id)
-            .map(UserRepositoryImpl::getUser)
-            .orElse(null);
+            .map(UserRepositoryImpl::getUser);
     }
 
     @Transactional
