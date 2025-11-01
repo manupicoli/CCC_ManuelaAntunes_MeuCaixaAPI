@@ -4,7 +4,6 @@ import com.manuela.meucaixa.adapters.outbound.entities.JpaCategoryEntity;
 import com.manuela.meucaixa.adapters.outbound.entities.JpaCustomerEntity;
 import com.manuela.meucaixa.adapters.outbound.entities.JpaFinancialRecordEntity;
 import com.manuela.meucaixa.adapters.outbound.entities.JpaNotificationEntity;
-import com.manuela.meucaixa.domain.notification.Notification;
 import com.manuela.meucaixa.domain.category.Category;
 import com.manuela.meucaixa.domain.customer.Customer;
 import com.manuela.meucaixa.domain.financialrecord.FinancialRecord;
@@ -104,26 +103,11 @@ class FinancialRepositoryImpl implements FinancialRecordRepository {
             .description(financialRecordEntity.getDescription())
             .category(Category.builder()
                 .id(financialRecordEntity.getCategory().getId())
-                .title(financialRecordEntity.getCategory().getTitle())
-                .description(financialRecordEntity.getCategory().getDescription())
-                .isDefault(financialRecordEntity.getCategory().getIsDefault())
                 .build())
             .customer(Customer.builder()
                 .id(financialRecordEntity.getCustomer().getId())
-                .name(financialRecordEntity.getCustomer().getName())
-                .code(financialRecordEntity.getCustomer().getCode())
                 .build())
-            .notifications(financialRecordEntity.getNotifications().isEmpty()
-                ? new ArrayList<>()
-                : financialRecordEntity.getNotifications().stream()
-                    .map(n -> Notification.builder()
-                        .id(n.getId())
-                        .content(n.getContent())
-                        .status(n.getStatus())
-                        .recipientEmail(n.getRecipientEmail())
-                        .scheduledDate(n.getScheduledDate())
-                        .build())
-                    .toList())
+            .notifications(new ArrayList<>())
             .build();
     }
 }
