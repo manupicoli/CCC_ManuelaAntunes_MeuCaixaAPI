@@ -1,7 +1,6 @@
 package com.manuela.meucaixa.application.usecase.financialrecord;
 
-import com.manuela.meucaixa.application.usecase.DomainException;
-import com.manuela.meucaixa.domain.category.CategoryRepository;
+import com.manuela.meucaixa.application.usecase.NotFoundException;
 import com.manuela.meucaixa.domain.financialrecord.FinancialRecordRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,7 @@ public class DefaultGetFinancialRecordUseCase implements GetFinancialRecordDetai
     @Override
     public GetFinancialRecordDetailsResponse execute(final Long id) {
         final var record = financialRecordRepository.findById(id)
-            .orElseThrow(() -> new DomainException("Record not found"));
+            .orElseThrow(NotFoundException::new);
 
         return GetFinancialRecordDetailsResponse.builder()
             .type(record.getType())

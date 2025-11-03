@@ -1,5 +1,6 @@
 package com.manuela.meucaixa.application.usecase.financialrecord;
 
+import com.manuela.meucaixa.application.usecase.NotFoundException;
 import com.manuela.meucaixa.application.usecase.DomainException;
 import com.manuela.meucaixa.domain.category.Category;
 import com.manuela.meucaixa.domain.category.CategoryRepository;
@@ -57,6 +58,6 @@ class DefaultAddEditFinancialRecordUseCase implements AddEditFinancialRecordUseC
 
     private FinancialRecord findRequired(final Long id) {
         return financialRecordRepository.findById(id)
-            .orElseThrow(() -> new DomainException("Financial record with id " + id + " not found"));
+            .orElseThrow(NotFoundException::new);
     }
 }

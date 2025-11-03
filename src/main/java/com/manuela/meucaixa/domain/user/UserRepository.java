@@ -14,6 +14,6 @@ public interface UserRepository {
 
     void deleteById(UUID id);
 
-    Users findByEmail(String email);
+    Optional<Users> findByEmail(String email);
 
 }

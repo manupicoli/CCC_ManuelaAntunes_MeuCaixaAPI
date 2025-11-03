@@ -20,11 +20,8 @@ class DefaultLoginUseCase implements LoginUseCase {
     public LoginResponse execute(final LoginRequest req) {
         try {
             final var res = keycloakFacade.login(req.username(), req.password());
-            final var user = userRepository.findByEmail(req.username());
-
-            if (user == null) {
-                throw new DomainException("Usuário ou senha inválidos.");
-            }
+            final var user = userRepository.findByEmail(req.username())
+                .orElseThrow(() -> new DomainException("Usuário ou senha inválidos."));
 
             return LoginResponse.builder()
                 .id(user.getId())

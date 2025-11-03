@@ -5,4 +5,3 @@ public class DomainException extends IllegalStateException {
         super(msg);
     }
 }
-

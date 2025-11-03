@@ -53,10 +53,9 @@ class UserRepositoryImpl implements UserRepository {
 
     @Transactional
     @Override
-    public Users findByEmail(String email) {
+    public Optional<Users> findByEmail(String email) {
         return jpaUserRepository.findByEmail(email)
-            .map(UserRepositoryImpl::getUser)
-            .orElse(null);
+            .map(UserRepositoryImpl::getUser);
     }
 
     private JpaUserEntity getUserEntity(final Users u) {

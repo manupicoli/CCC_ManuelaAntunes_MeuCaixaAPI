@@ -1,6 +1,6 @@
 package com.manuela.meucaixa.application.usecase.user;
 
-import com.manuela.meucaixa.application.usecase.DomainException;
+import com.manuela.meucaixa.application.usecase.NotFoundException;
 import com.manuela.meucaixa.auth.CurrentUser;
 import com.manuela.meucaixa.domain.user.UserRepository;
 import lombok.AccessLevel;
@@ -19,7 +19,7 @@ class DefaultGetUserDetailsUseCase implements GetUserDetailsUseCase{
     @Override
     public GetUserDetailsResponse execute() {
         final var user = userRepository.findById(UUID.fromString(currentUser.subject()))
-            .orElseThrow(() -> new DomainException("User not found"));
+            .orElseThrow(NotFoundException::new);
 
         return GetUserDetailsResponse.builder()
             .name(user.getName())

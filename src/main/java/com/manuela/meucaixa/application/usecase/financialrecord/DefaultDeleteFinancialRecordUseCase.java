@@ -1,6 +1,6 @@
 package com.manuela.meucaixa.application.usecase.financialrecord;
 
-import com.manuela.meucaixa.application.usecase.DomainException;
+import com.manuela.meucaixa.application.usecase.NotFoundException;
 import com.manuela.meucaixa.domain.financialrecord.FinancialRecordRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ class DefaultDeleteFinancialRecordUseCase implements DeleteFinancialRecordUseCas
     @Override
     public void execute(final Long id) {
         final var financialRecord = financialRecordRepository.findById(id)
-            .orElseThrow(() -> new DomainException("Financial record not found"));
+            .orElseThrow(NotFoundException::new);
 
         financialRecordRepository.deleteById(financialRecord.getId());
         log.info("Financial record successfully deleted");
