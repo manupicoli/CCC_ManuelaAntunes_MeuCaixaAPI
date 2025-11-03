@@ -5,14 +5,18 @@ import com.manuela.meucaixa.adapters.outbound.entities.JpaNotificationEntity;
 import com.manuela.meucaixa.domain.financialrecord.FinancialRecord;
 import com.manuela.meucaixa.domain.notification.Notification;
 import com.manuela.meucaixa.domain.notification.NotificationRepository;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
-@RequiredArgsConstructor
-public class NotificationRepositoryImpl implements NotificationRepository {
+@Repository
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+class NotificationRepositoryImpl implements NotificationRepository {
 
-    private JpaNotificationRepository jpaNotificationRepository;
+    private final JpaNotificationRepository jpaNotificationRepository;
 
     @Override
     public Notification save(Notification notification) {
@@ -23,10 +27,9 @@ public class NotificationRepositoryImpl implements NotificationRepository {
     }
 
     @Override
-    public Notification findById(Long id) {
+    public Optional<Notification> findById(Long id) {
         return jpaNotificationRepository.findById(id)
-            .map(NotificationRepositoryImpl::getNotification)
-            .orElse(null);
+            .map(NotificationRepositoryImpl::getNotification);
     }
 
     @Override

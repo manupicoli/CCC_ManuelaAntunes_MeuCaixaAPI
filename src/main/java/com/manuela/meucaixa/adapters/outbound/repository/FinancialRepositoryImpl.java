@@ -4,21 +4,29 @@ import com.manuela.meucaixa.adapters.outbound.entities.JpaCategoryEntity;
 import com.manuela.meucaixa.adapters.outbound.entities.JpaCustomerEntity;
 import com.manuela.meucaixa.adapters.outbound.entities.JpaFinancialRecordEntity;
 import com.manuela.meucaixa.adapters.outbound.entities.JpaNotificationEntity;
-import com.manuela.meucaixa.domain.notification.Notification;
 import com.manuela.meucaixa.domain.category.Category;
 import com.manuela.meucaixa.domain.customer.Customer;
 import com.manuela.meucaixa.domain.financialrecord.FinancialRecord;
 import com.manuela.meucaixa.domain.financialrecord.FinancialRecordRepository;
+import com.manuela.meucaixa.domain.notification.Notification;
+import jakarta.transaction.Transactional;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@RequiredArgsConstructor
-public class FinancialRepositoryImpl implements FinancialRecordRepository {
+@Repository
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+class FinancialRepositoryImpl implements FinancialRecordRepository {
 
     private final JpaFinancialRecordRepository jpaFinancialRecordRepository;
 
+    @Transactional
     @Override
     public FinancialRecord save(FinancialRecord financialRecord) {
         final var financialRecordEntity = getFinancialRecordEntity(financialRecord);
@@ -27,20 +35,21 @@ public class FinancialRepositoryImpl implements FinancialRecordRepository {
         return getFinancialRecord(saved);
     }
 
+    @Transactional
     @Override
-    public FinancialRecord findById(Long id) {
+    public Optional<FinancialRecord> findById(Long id) {
         final var financialRecordEntity = jpaFinancialRecordRepository.findById(id);
-        return financialRecordEntity.map(FinancialRepositoryImpl::getFinancialRecord).orElse(null);
+        return financialRecordEntity.map(FinancialRepositoryImpl::getFinancialRecord);
     }
 
+    @Transactional
     @Override
-    public List<FinancialRecord> findAll() {
-        return jpaFinancialRecordRepository.findAll()
-            .stream()
-            .map(FinancialRepositoryImpl::getFinancialRecord)
-            .toList();
+    public Page<FinancialRecord> search(String customerCode, String qs, Pageable pageable) {
+        return jpaFinancialRecordRepository.search(customerCode, qs, pageable)
+            .map(FinancialRepositoryImpl::getFinancialRecord);
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         jpaFinancialRecordRepository.deleteById(id);
@@ -112,14 +121,14 @@ public class FinancialRepositoryImpl implements FinancialRecordRepository {
             .notifications(financialRecordEntity.getNotifications().isEmpty()
                 ? new ArrayList<>()
                 : financialRecordEntity.getNotifications().stream()
-                    .map(n -> Notification.builder()
-                        .id(n.getId())
-                        .content(n.getContent())
-                        .status(n.getStatus())
-                        .recipientEmail(n.getRecipientEmail())
-                        .scheduledDate(n.getScheduledDate())
-                        .build())
-                    .toList())
+                .map(n -> Notification.builder()
+                    .id(n.getId())
+                    .content(n.getContent())
+                    .status(n.getStatus())
+                    .recipientEmail(n.getRecipientEmail())
+                    .scheduledDate(n.getScheduledDate())
+                    .build())
+                .toList())
             .build();
     }
 }

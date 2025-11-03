@@ -5,12 +5,16 @@ import com.manuela.meucaixa.adapters.outbound.entities.JpaCustomerEntity;
 import com.manuela.meucaixa.domain.customer.Customer;
 import com.manuela.meucaixa.domain.category.Category;
 import com.manuela.meucaixa.domain.category.CategoryRepository;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
-@RequiredArgsConstructor
-public class CategoryRepositoryImpl implements CategoryRepository {
+@Repository
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+class CategoryRepositoryImpl implements CategoryRepository {
 
     private final JpaCategoryRepository jpaCategoryRepository;
 
@@ -23,9 +27,9 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     }
 
     @Override
-    public Category findById(Long id) {
+    public Optional<Category> findById(Long id) {
         final var categoryEntity = jpaCategoryRepository.findById(id);
-        return categoryEntity.map(CategoryRepositoryImpl::getCategory).orElse(null);
+        return categoryEntity.map(CategoryRepositoryImpl::getCategory);
     }
 
     @Override
