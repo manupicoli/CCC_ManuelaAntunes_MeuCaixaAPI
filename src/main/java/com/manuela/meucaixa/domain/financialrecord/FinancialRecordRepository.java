@@ -1,6 +1,8 @@
 package com.manuela.meucaixa.domain.financialrecord;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.Optional;
 
 public interface FinancialRecordRepository {
@@ -9,8 +11,7 @@ public interface FinancialRecordRepository {
 
     Optional<FinancialRecord> findById(Long id);
 
-    List<FinancialRecord> findAll();
-
     void deleteById(Long id);
 
+    Page<FinancialRecord> search(String customerCode, String qs, Pageable pageable);
 }

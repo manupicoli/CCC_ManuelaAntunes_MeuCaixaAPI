@@ -4,6 +4,11 @@ import com.manuela.meucaixa.application.usecase.financialrecord.AddEditFinancial
 import com.manuela.meucaixa.application.usecase.financialrecord.GetFinancialRecordDetailsResponse;
 import com.manuela.meucaixa.application.usecase.financialrecord.ListFinancialRecordResponse;
 import jakarta.validation.Valid;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +31,8 @@ public interface FinancialRecordControllerApi {
     void delete(@PathVariable Long id);
 
     @GetMapping
-    ListFinancialRecordResponse list();
+    Page<ListFinancialRecordResponse> list(@RequestParam(defaultValue = StringUtils.EMPTY) String qs,
+                                           @PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable page);
 
     @GetMapping("/{id}")
     GetFinancialRecordDetailsResponse getDetails(@PathVariable Long id);

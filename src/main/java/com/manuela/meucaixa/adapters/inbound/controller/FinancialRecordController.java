@@ -3,6 +3,8 @@ package com.manuela.meucaixa.adapters.inbound.controller;
 import com.manuela.meucaixa.application.usecase.financialrecord.*;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -30,8 +32,8 @@ class FinancialRecordController implements FinancialRecordControllerApi {
     }
 
     @Override
-    public ListFinancialRecordResponse list() {
-        return listFinancialRecordUseCase.execute();
+    public Page<ListFinancialRecordResponse> list(String qs, Pageable pageable) {
+        return listFinancialRecordUseCase.execute(new ListFinancialRecordRequest(qs, pageable));
     }
 
     @Override

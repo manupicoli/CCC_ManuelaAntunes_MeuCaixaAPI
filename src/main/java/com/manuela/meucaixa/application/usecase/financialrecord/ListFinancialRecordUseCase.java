@@ -1,6 +1,7 @@
 package com.manuela.meucaixa.application.usecase.financialrecord;
 
-import com.manuela.meucaixa.infrastructure.NullaryUseCase;
+import com.manuela.meucaixa.infrastructure.UseCase;
+import org.springframework.data.domain.Page;
 
-public interface ListFinancialRecordUseCase extends NullaryUseCase<ListFinancialRecordResponse> {
+public interface ListFinancialRecordUseCase extends UseCase<ListFinancialRecordRequest, Page<ListFinancialRecordResponse>> {
 }

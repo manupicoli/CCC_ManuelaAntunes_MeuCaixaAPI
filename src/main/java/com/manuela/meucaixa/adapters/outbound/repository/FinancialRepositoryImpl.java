@@ -12,6 +12,8 @@ import com.manuela.meucaixa.domain.notification.Notification;
 import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -42,11 +44,9 @@ class FinancialRepositoryImpl implements FinancialRecordRepository {
 
     @Transactional
     @Override
-    public List<FinancialRecord> findAll() {
-        return jpaFinancialRecordRepository.findAll()
-            .stream()
-            .map(FinancialRepositoryImpl::getFinancialRecord)
-            .toList();
+    public Page<FinancialRecord> search(String customerCode, String qs, Pageable pageable) {
+        return jpaFinancialRecordRepository.search(customerCode, qs, pageable)
+            .map(FinancialRepositoryImpl::getFinancialRecord);
     }
 
     @Transactional
