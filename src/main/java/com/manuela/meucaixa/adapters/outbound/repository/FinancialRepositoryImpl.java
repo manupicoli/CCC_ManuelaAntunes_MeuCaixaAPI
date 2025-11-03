@@ -8,6 +8,8 @@ import com.manuela.meucaixa.domain.category.Category;
 import com.manuela.meucaixa.domain.customer.Customer;
 import com.manuela.meucaixa.domain.financialrecord.FinancialRecord;
 import com.manuela.meucaixa.domain.financialrecord.FinancialRecordRepository;
+import com.manuela.meucaixa.domain.notification.Notification;
+import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -22,6 +24,7 @@ class FinancialRepositoryImpl implements FinancialRecordRepository {
 
     private final JpaFinancialRecordRepository jpaFinancialRecordRepository;
 
+    @Transactional
     @Override
     public FinancialRecord save(FinancialRecord financialRecord) {
         final var financialRecordEntity = getFinancialRecordEntity(financialRecord);
@@ -30,12 +33,14 @@ class FinancialRepositoryImpl implements FinancialRecordRepository {
         return getFinancialRecord(saved);
     }
 
+    @Transactional
     @Override
     public Optional<FinancialRecord> findById(Long id) {
         final var financialRecordEntity = jpaFinancialRecordRepository.findById(id);
         return financialRecordEntity.map(FinancialRepositoryImpl::getFinancialRecord);
     }
 
+    @Transactional
     @Override
     public List<FinancialRecord> findAll() {
         return jpaFinancialRecordRepository.findAll()
@@ -44,6 +49,7 @@ class FinancialRepositoryImpl implements FinancialRecordRepository {
             .toList();
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         jpaFinancialRecordRepository.deleteById(id);
@@ -103,11 +109,26 @@ class FinancialRepositoryImpl implements FinancialRecordRepository {
             .description(financialRecordEntity.getDescription())
             .category(Category.builder()
                 .id(financialRecordEntity.getCategory().getId())
+                .title(financialRecordEntity.getCategory().getTitle())
+                .description(financialRecordEntity.getCategory().getDescription())
+                .isDefault(financialRecordEntity.getCategory().getIsDefault())
                 .build())
             .customer(Customer.builder()
                 .id(financialRecordEntity.getCustomer().getId())
+                .name(financialRecordEntity.getCustomer().getName())
+                .code(financialRecordEntity.getCustomer().getCode())
                 .build())
-            .notifications(new ArrayList<>())
+            .notifications(financialRecordEntity.getNotifications().isEmpty()
+                ? new ArrayList<>()
+                : financialRecordEntity.getNotifications().stream()
+                .map(n -> Notification.builder()
+                    .id(n.getId())
+                    .content(n.getContent())
+                    .status(n.getStatus())
+                    .recipientEmail(n.getRecipientEmail())
+                    .scheduledDate(n.getScheduledDate())
+                    .build())
+                .toList())
             .build();
     }
 }
