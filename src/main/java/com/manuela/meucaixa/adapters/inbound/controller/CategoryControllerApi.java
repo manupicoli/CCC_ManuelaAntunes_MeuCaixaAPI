@@ -18,4 +18,8 @@ public interface CategoryControllerApi {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void update(@PathVariable Long id,
                 @Valid @RequestBody AddEditCategoryRequest request);
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void delete(@PathVariable Long id);
 }
