@@ -7,7 +7,7 @@ public interface CategoryRepository {
 
     Category save(Category category);
 
-    Optional<Category> findById(Long id);
+    Optional<Category> findByIdAndCustomerCode(Long id, String customerCode);
 
     List<Category> findAll();
 
