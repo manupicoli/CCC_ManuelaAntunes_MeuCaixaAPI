@@ -1,6 +1,8 @@
 package com.manuela.meucaixa.domain.category;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.Optional;
 
 public interface CategoryRepository {
@@ -9,7 +11,7 @@ public interface CategoryRepository {
 
     Optional<Category> findByIdAndCustomerCode(Long id, String customerCode);
 
-    List<Category> findAll();
+    Page<Category> findAllByCustomerCode(String customerCode, String qs, Pageable pageable);
 
     void deleteById(Long id);
 

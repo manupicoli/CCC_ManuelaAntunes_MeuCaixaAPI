@@ -8,9 +8,10 @@ import com.manuela.meucaixa.domain.category.CategoryRepository;
 import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -37,11 +38,9 @@ class CategoryRepositoryImpl implements CategoryRepository {
 
     @Transactional
     @Override
-    public List<Category> findAll() {
-       return jpaCategoryRepository.findAll()
-           .stream()
-           .map(CategoryRepositoryImpl::getCategory)
-           .toList();
+    public Page<Category> findAllByCustomerCode(String customerCode, String qs, Pageable pageable) {
+       return jpaCategoryRepository.findAllByCustomerCodeAndDefault(customerCode, qs, pageable)
+           .map(CategoryRepositoryImpl::getCategory);
     }
 
     @Transactional

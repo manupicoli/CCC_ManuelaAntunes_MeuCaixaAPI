@@ -1,4 +1,7 @@
 package com.manuela.meucaixa.application.usecase.category;
 
-public record ListCategoryRequest() {
+import org.springframework.data.domain.Pageable;
+
+public record ListCategoryRequest(String qs,
+                                  Pageable pageable) {
 }
