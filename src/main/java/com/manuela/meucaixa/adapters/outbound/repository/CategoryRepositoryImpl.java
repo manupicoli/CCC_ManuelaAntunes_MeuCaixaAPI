@@ -5,11 +5,13 @@ import com.manuela.meucaixa.adapters.outbound.entities.JpaCustomerEntity;
 import com.manuela.meucaixa.domain.customer.Customer;
 import com.manuela.meucaixa.domain.category.Category;
 import com.manuela.meucaixa.domain.category.CategoryRepository;
+import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -18,6 +20,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
 
     private final JpaCategoryRepository jpaCategoryRepository;
 
+    @Transactional
     @Override
     public Category save(Category category) {
         final var categoryEntity = getCategoryEntity(category);
@@ -26,20 +29,21 @@ class CategoryRepositoryImpl implements CategoryRepository {
         return getCategory(saved);
     }
 
+    @Transactional
     @Override
-    public Optional<Category> findById(Long id) {
-        final var categoryEntity = jpaCategoryRepository.findById(id);
+    public Optional<Category> findByIdAndCustomerCode(Long id, String customerCode) {
+        final var categoryEntity = jpaCategoryRepository.findByIdAndCustomerCode(id, customerCode);
         return categoryEntity.map(CategoryRepositoryImpl::getCategory);
     }
 
+    @Transactional
     @Override
-    public List<Category> findAll() {
-       return jpaCategoryRepository.findAll()
-           .stream()
-           .map(CategoryRepositoryImpl::getCategory)
-           .toList();
+    public Page<Category> findAllByCustomerCode(String customerCode, String qs, Pageable pageable) {
+       return jpaCategoryRepository.findAllByCustomerCodeOrDefault(customerCode, qs, pageable)
+           .map(CategoryRepositoryImpl::getCategory);
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         jpaCategoryRepository.deleteById(id);
