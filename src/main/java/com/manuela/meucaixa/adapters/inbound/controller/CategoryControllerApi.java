@@ -1,6 +1,7 @@
 package com.manuela.meucaixa.adapters.inbound.controller;
 
 import com.manuela.meucaixa.application.usecase.category.AddEditCategoryRequest;
+import com.manuela.meucaixa.application.usecase.category.GetCategoryDetailsResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -22,4 +23,7 @@ public interface CategoryControllerApi {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void delete(@PathVariable Long id);
+
+    @GetMapping("/{id}")
+    GetCategoryDetailsResponse get(@PathVariable Long id);
 }

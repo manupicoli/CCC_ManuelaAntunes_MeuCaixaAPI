@@ -3,6 +3,8 @@ package com.manuela.meucaixa.adapters.inbound.controller;
 import com.manuela.meucaixa.application.usecase.category.AddEditCategoryRequest;
 import com.manuela.meucaixa.application.usecase.category.AddEditCategoryUseCase;
 import com.manuela.meucaixa.application.usecase.category.DeleteCategoryUseCase;
+import com.manuela.meucaixa.application.usecase.category.GetCategoryDetailsUseCase;
+import com.manuela.meucaixa.application.usecase.category.GetCategoryDetailsResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +15,7 @@ class CategoryController implements CategoryControllerApi {
 
     private final DeleteCategoryUseCase deleteCategoryUseCase;
     private final AddEditCategoryUseCase addEditCategoryUseCase;
+    private final GetCategoryDetailsUseCase getCategoryDetailsUseCase;
 
     @Override
     public void create(final AddEditCategoryRequest request) {
@@ -27,5 +30,10 @@ class CategoryController implements CategoryControllerApi {
     @Override
     public void delete(final Long id) {
         deleteCategoryUseCase.execute(id);
+    }
+
+    @Override
+    public GetCategoryDetailsResponse get(final Long id) {
+        return getCategoryDetailsUseCase.execute(id);
     }
 }

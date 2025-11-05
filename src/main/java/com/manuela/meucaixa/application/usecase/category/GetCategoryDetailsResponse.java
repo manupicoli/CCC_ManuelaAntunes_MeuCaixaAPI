@@ -1,4 +1,9 @@
 package com.manuela.meucaixa.application.usecase.category;
 
-public record GetCategoryDetailsResponse() {
+import lombok.Builder;
+
+@Builder
+public record GetCategoryDetailsResponse(String title,
+                                         String description,
+                                         Boolean isDefault) {
 }
