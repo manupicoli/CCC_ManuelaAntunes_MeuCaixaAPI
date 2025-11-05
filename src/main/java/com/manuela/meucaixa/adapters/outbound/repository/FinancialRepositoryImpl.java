@@ -37,8 +37,8 @@ class FinancialRepositoryImpl implements FinancialRecordRepository {
 
     @Transactional
     @Override
-    public Optional<FinancialRecord> findById(Long id) {
-        final var financialRecordEntity = jpaFinancialRecordRepository.findById(id);
+    public Optional<FinancialRecord> findByIdAndCustomerCode(Long id, String customerCode) {
+        final var financialRecordEntity = jpaFinancialRecordRepository.findByIdAndCustomerCode(id, customerCode);
         return financialRecordEntity.map(FinancialRepositoryImpl::getFinancialRecord);
     }
 

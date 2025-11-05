@@ -9,7 +9,7 @@ public interface FinancialRecordRepository {
 
     FinancialRecord save(FinancialRecord financialRecord);
 
-    Optional<FinancialRecord> findById(Long id);
+    Optional<FinancialRecord> findByIdAndCustomerCode(Long id, String customerCode);
 
     void deleteById(Long id);
 

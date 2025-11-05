@@ -1,6 +1,7 @@
 package com.manuela.meucaixa.application.usecase.financialrecord;
 
 import com.manuela.meucaixa.application.usecase.NotFoundException;
+import com.manuela.meucaixa.auth.CurrentUser;
 import com.manuela.meucaixa.domain.category.Category;
 import com.manuela.meucaixa.domain.category.CategoryRepository;
 import com.manuela.meucaixa.domain.customer.Customer;
@@ -19,9 +20,10 @@ import java.util.ArrayList;
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 class DefaultAddEditFinancialRecordUseCase implements AddEditFinancialRecordUseCase {
 
-    private final FinancialRecordRepository financialRecordRepository;
+    private final CurrentUser currentUser;
     private final CustomerRepository customerRepository;
     private final CategoryRepository categoryRepository;
+    private final FinancialRecordRepository financialRecordRepository;
 
     @Override
     public void execute(final Long id, final AddEditFinancialRecordRequest req) {
@@ -45,7 +47,7 @@ class DefaultAddEditFinancialRecordUseCase implements AddEditFinancialRecordUseC
     }
 
     private Category getCategory(final Long id) {
-        return categoryRepository.findById(id)
+        return categoryRepository.findByIdAndCustomerCode(id, currentUser.customerCode())
             .orElseThrow(NotFoundException::new);
     }
 
@@ -56,7 +58,7 @@ class DefaultAddEditFinancialRecordUseCase implements AddEditFinancialRecordUseC
     }
 
     private FinancialRecord findRequired(final Long id) {
-        return financialRecordRepository.findById(id)
+        return financialRecordRepository.findByIdAndCustomerCode(id, currentUser.customerCode())
             .orElseThrow(NotFoundException::new);
     }
 }
