@@ -12,21 +12,17 @@ import java.util.Optional;
 @Repository
 public interface JpaCategoryRepository extends JpaRepository<JpaCategoryEntity, Long> {
 
-    @Query("""
-        SELECT c
-        FROM JpaCategoryEntity c
-        WHERE c.id = :id
-        AND (c.customer.code = :customerCode OR c.customer IS NULL)
-        """)
-    Optional<JpaCategoryEntity> findByIdAndCustomerCodeOrDefault(Long id, String customerCode);
+    Optional<JpaCategoryEntity> findByIdAndCustomerCode(Long id, String customerCode);
 
     @Query("""
-        SELECT c
-        FROM JpaCategoryEntity c
-        WHERE (:qs IS NULL OR
-            LOWER(c.title) LIKE LOWER(CONCAT('%', :qs, '%')) OR
-            LOWER(c.description) LIKE LOWER(CONCAT('%', :qs, '%')))
-            AND (c.customer.code = :customerCode OR c.customer IS NULL)
-        """)
-    Page<JpaCategoryEntity> findAllByCustomerCodeAndDefault(String customerCode, String qs, Pageable pageable);
+    SELECT c
+    FROM JpaCategoryEntity c
+    LEFT JOIN c.customer cust
+    WHERE (cust.code = :customerCode OR cust IS NULL)
+      AND (:qs IS NULL OR
+           LOWER(c.title) LIKE LOWER(CONCAT('%', :qs, '%')) OR
+           LOWER(c.description) LIKE LOWER(CONCAT('%', :qs, '%')))
+    """)
+    Page<JpaCategoryEntity> findAllByCustomerCodeOrDefault(String customerCode, String qs, Pageable pageable);
+
 }

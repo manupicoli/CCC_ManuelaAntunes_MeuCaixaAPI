@@ -32,14 +32,14 @@ class CategoryRepositoryImpl implements CategoryRepository {
     @Transactional
     @Override
     public Optional<Category> findByIdAndCustomerCode(Long id, String customerCode) {
-        final var categoryEntity = jpaCategoryRepository.findByIdAndCustomerCodeOrDefault(id, customerCode);
+        final var categoryEntity = jpaCategoryRepository.findByIdAndCustomerCode(id, customerCode);
         return categoryEntity.map(CategoryRepositoryImpl::getCategory);
     }
 
     @Transactional
     @Override
     public Page<Category> findAllByCustomerCode(String customerCode, String qs, Pageable pageable) {
-       return jpaCategoryRepository.findAllByCustomerCodeAndDefault(customerCode, qs, pageable)
+       return jpaCategoryRepository.findAllByCustomerCodeOrDefault(customerCode, qs, pageable)
            .map(CategoryRepositoryImpl::getCategory);
     }
 
