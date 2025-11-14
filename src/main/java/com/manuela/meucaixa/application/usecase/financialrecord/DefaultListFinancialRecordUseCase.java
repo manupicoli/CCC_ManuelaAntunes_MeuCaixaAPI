@@ -28,6 +28,7 @@ public class DefaultListFinancialRecordUseCase implements ListFinancialRecordUse
             .type(e.getType())
             .amount(e.getAmount())
             .categoryTitle(e.getCategory().getTitle())
+            .categoryId(e.getCategory().getId())
             .description(e.getDescription())
             .dueDate(e.getDueDate())
             .paymentDate(e.getPaymentDate())
