@@ -35,10 +35,10 @@ class DefaultAddEditFinancialRecordUseCase implements AddEditFinancialRecordUseC
         record.setPaymentDate(req.paymentDate());
         record.setDescription(req.description());
         record.setCategory(getCategory(req.category()));
-        record.setCustomer(getCustomer(req.customerCode()));
+        record.setCustomer(getCustomer(currentUser.customerCode()));
 
         final var saved = financialRecordRepository.save(record);
-        log.info("Financial record={} has been saved successfully for customer={}", saved.getId(), req.customerCode());
+        log.info("Financial record={} has been saved successfully for customer={}", saved.getId(), currentUser.customerCode());
     }
 
     private Customer getCustomer(final String code) {

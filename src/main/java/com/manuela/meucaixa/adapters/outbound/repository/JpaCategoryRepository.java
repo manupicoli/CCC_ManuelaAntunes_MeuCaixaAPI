@@ -12,6 +12,13 @@ import java.util.Optional;
 @Repository
 public interface JpaCategoryRepository extends JpaRepository<JpaCategoryEntity, Long> {
 
+    @Query("""
+        SELECT c
+        FROM JpaCategoryEntity c
+        LEFT JOIN c.customer cust
+        WHERE (cust.code = :customerCode OR cust IS NULL)
+        AND (c.id = :id)
+    """)
     Optional<JpaCategoryEntity> findByIdAndCustomerCode(Long id, String customerCode);
 
     @Query("""
