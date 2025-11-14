@@ -23,6 +23,7 @@ public class DefaultGetFinancialRecordUseCase implements GetFinancialRecordDetai
             .type(record.getType())
             .amount(record.getAmount())
             .categoryTitle(record.getCategory().getTitle())
+            .categoryId(record.getCategory().getId())
             .description(record.getDescription())
             .dueDate(record.getDueDate())
             .paymentDate(record.getPaymentDate())

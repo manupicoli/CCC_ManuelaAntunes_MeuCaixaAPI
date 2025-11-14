@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 public record GetFinancialRecordDetailsResponse(FinancialRecordType type,
                                                 BigDecimal amount,
                                                 String categoryTitle,
+                                                Long categoryId,
                                                 String description,
                                                 LocalDateTime dueDate,
                                                 LocalDateTime paymentDate) {
