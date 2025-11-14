@@ -25,10 +25,10 @@ public class DefaultListFinancialRecordUseCase implements ListFinancialRecordUse
 
     private static Function<FinancialRecord, ListFinancialRecordResponse> toResponse() {
         return e -> ListFinancialRecordResponse.builder()
+            .id(e.getId())
             .type(e.getType())
             .amount(e.getAmount())
             .categoryTitle(e.getCategory().getTitle())
-            .categoryId(e.getCategory().getId())
             .description(e.getDescription())
             .dueDate(e.getDueDate())
             .paymentDate(e.getPaymentDate())

@@ -7,10 +7,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Builder
-public record ListFinancialRecordResponse(FinancialRecordType type,
+public record ListFinancialRecordResponse(Long id,
+                                          FinancialRecordType type,
                                           BigDecimal amount,
                                           String categoryTitle,
-                                          Long categoryId,
                                           String description,
                                           LocalDateTime dueDate,
                                           LocalDateTime paymentDate) {
