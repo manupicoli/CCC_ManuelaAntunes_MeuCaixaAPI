@@ -1,6 +1,6 @@
 package com.manuela.meucaixa.application.usecase.home;
 
-import com.manuela.meucaixa.infrastructure.UseCase;
+import com.manuela.meucaixa.infrastructure.NullaryUseCase;
 
-public interface GetDashboardDetailsUseCase extends UseCase<GetDashboardDetailsRequest, GetDashboardDetailsResponse> {
+public interface GetDashboardDetailsUseCase extends NullaryUseCase<GetDashboardDetailsResponse> {
 }

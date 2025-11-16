@@ -19,6 +19,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
@@ -53,6 +54,15 @@ class FinancialRepositoryImpl implements FinancialRecordRepository {
     @Override
     public void deleteById(Long id) {
         jpaFinancialRecordRepository.deleteById(id);
+    }
+
+    @Transactional
+    @Override
+    public List<FinancialRecord> findAllByCustomerCode(String customerCode) {
+        return jpaFinancialRecordRepository.findAllByCustomerCode(customerCode)
+            .stream()
+            .map(FinancialRepositoryImpl::getFinancialRecord)
+            .collect(Collectors.toList());
     }
 
     private JpaFinancialRecordEntity getFinancialRecordEntity(final FinancialRecord financialRecord) {
