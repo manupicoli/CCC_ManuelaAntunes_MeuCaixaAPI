@@ -1,8 +1,6 @@
 package com.manuela.meucaixa.adapters.outbound.repository;
 
-import com.manuela.meucaixa.adapters.outbound.entities.JpaCategoryEntity;
 import com.manuela.meucaixa.adapters.outbound.entities.JpaCustomerEntity;
-import com.manuela.meucaixa.adapters.outbound.entities.JpaUserEntity;
 import com.manuela.meucaixa.domain.category.Category;
 import com.manuela.meucaixa.domain.customer.Customer;
 import com.manuela.meucaixa.domain.customer.CustomerRepository;
@@ -12,7 +10,6 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,6 +49,8 @@ class CustomerRepositoryImpl implements CustomerRepository {
         jpaCustomerRepository.deleteById(id);
     }
 
+    @Transactional
+    @Override
     public Optional<Customer> findByCode(String code) {
         final var customerEntity = jpaCustomerRepository.findByCode(code);
         return customerEntity.map(CustomerRepositoryImpl::getCustomer);
@@ -62,35 +61,7 @@ class CustomerRepositoryImpl implements CustomerRepository {
             .id(customer.getId())
             .name(customer.getName())
             .code(customer.getCode())
-            .users(getJpaUsersEntitiesId(customer))
-            .categories(getJpaCategoryEntitiesId(customer))
             .build();
-    }
-
-    private List<JpaCategoryEntity> getJpaCategoryEntitiesId(Customer customer) {
-        if (customer.getCategories().isEmpty()) {
-            return new ArrayList<>();
-        }
-
-        return customer.getCategories()
-            .stream()
-            .map(e -> JpaCategoryEntity.builder()
-                .id(e.getId())
-                .build())
-            .toList();
-    }
-
-    private List<JpaUserEntity> getJpaUsersEntitiesId(Customer customer) {
-        if (customer.getUsers().isEmpty()) {
-            return new ArrayList<>();
-        }
-
-        return customer.getUsers()
-            .stream()
-            .map(e -> JpaUserEntity.builder()
-                .id(e.getId())
-                .build())
-            .toList();
     }
 
     private static Customer getCustomer(JpaCustomerEntity jpaCustomerEntity) {
