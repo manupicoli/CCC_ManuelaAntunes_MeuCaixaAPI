@@ -29,6 +29,12 @@ class CategoryRepositoryImpl implements CategoryRepository {
         return getCategory(saved);
     }
 
+    @Override
+    public Optional<Category> findById(Long categoryId) {
+        final var categoryEntity = jpaCategoryRepository.findById(categoryId);
+        return categoryEntity.map(CategoryRepositoryImpl::getCategory);
+    }
+
     @Transactional
     @Override
     public Optional<Category> findByIdAndCustomerCode(Long id, String customerCode) {

@@ -21,5 +21,7 @@ public interface FinancialRecordRepository {
 
     List<FinancialRecord> filterByPeriod(LocalDate start, LocalDate end, String customerCode);
 
+    List<FinancialRecord> findByCategoryIdAndCode(Long categoryId, String code);
+
     Boolean existsByCategoryIdAndCustomerCode(Long categoryId, String customerCode);
 }

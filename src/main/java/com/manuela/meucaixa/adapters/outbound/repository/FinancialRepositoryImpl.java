@@ -79,6 +79,14 @@ class FinancialRepositoryImpl implements FinancialRecordRepository {
     }
 
     @Override
+    public List<FinancialRecord> findByCategoryIdAndCode(Long categoryId, String code) {
+        return jpaFinancialRecordRepository.findByCategoryIdAndCustomerCode(categoryId, code)
+            .stream()
+            .map(FinancialRepositoryImpl::getFinancialRecord)
+            .toList() ;
+    }
+
+    @Override
     public Boolean existsByCategoryIdAndCustomerCode(Long categoryId, String customerCode) {
         return jpaFinancialRecordRepository.existsByCategoryIdAndCustomerCode(categoryId, customerCode);
     }

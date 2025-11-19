@@ -9,6 +9,8 @@ public interface CategoryRepository {
 
     Category save(Category category);
 
+    Optional<Category> findById(Long categoryId);
+
     Optional<Category> findByIdAndCustomerCode(Long id, String customerCode);
 
     Page<Category> findAllByCustomerCode(String customerCode, String qs, Pageable pageable);
