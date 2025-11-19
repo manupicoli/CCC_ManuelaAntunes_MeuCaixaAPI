@@ -78,6 +78,7 @@ class FinancialRepositoryImpl implements FinancialRecordRepository {
             .toList();
     }
 
+    @Transactional
     @Override
     public List<FinancialRecord> findByCategoryIdAndCode(Long categoryId, String code) {
         return jpaFinancialRecordRepository.findByCategoryIdAndCustomerCode(categoryId, code)

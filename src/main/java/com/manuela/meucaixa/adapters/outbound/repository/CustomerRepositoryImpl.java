@@ -75,6 +75,8 @@ class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     private static List<Category> getCategories(JpaCustomerEntity jpaCustomerEntity) {
+        if (jpaCustomerEntity.getCategories() == null) return List.of();
+
         return jpaCustomerEntity.getCategories()
             .stream()
             .map(e -> Category.builder()
@@ -87,6 +89,8 @@ class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     private static List<Users> getUsers(JpaCustomerEntity jpaCustomerEntity) {
+        if (jpaCustomerEntity.getUsers() == null) return List.of();
+
         return jpaCustomerEntity.getUsers()
             .stream()
             .map(e -> Users.builder()

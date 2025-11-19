@@ -60,3 +60,5 @@ INSERT INTO category (id, title, description, is_default, customer_id) VALUES
    (6, 'Aluguel', 'Aluguel do espaço ou escritório', TRUE, NULL),
    (7, 'Contas e serviços', 'Luz, água, internet, telefone e serviços gerais', TRUE, NULL),
    (8, 'Impostos', 'Tributos, taxas e contribuições obrigatórias', TRUE, NULL);
+
+SELECT setval('category_id_seq', (SELECT MAX(id) FROM category));
