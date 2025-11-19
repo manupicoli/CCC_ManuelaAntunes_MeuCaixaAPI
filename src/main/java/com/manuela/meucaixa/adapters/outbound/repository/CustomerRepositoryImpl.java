@@ -1,8 +1,13 @@
 package com.manuela.meucaixa.adapters.outbound.repository;
 
+import com.manuela.meucaixa.adapters.outbound.entities.JpaCategoryEntity;
 import com.manuela.meucaixa.adapters.outbound.entities.JpaCustomerEntity;
+import com.manuela.meucaixa.adapters.outbound.entities.JpaUserEntity;
+import com.manuela.meucaixa.domain.category.Category;
 import com.manuela.meucaixa.domain.customer.Customer;
 import com.manuela.meucaixa.domain.customer.CustomerRepository;
+import com.manuela.meucaixa.domain.user.Users;
+import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -16,6 +21,7 @@ class CustomerRepositoryImpl implements CustomerRepository {
 
     private final JpaCustomerRepository jpaCustomerRepository;
 
+    @Transactional
     @Override
     public Customer save(Customer customer) {
         final var customerEntity = getCustomerEntity(customer);
@@ -23,12 +29,14 @@ class CustomerRepositoryImpl implements CustomerRepository {
         return getCustomer(saved);
     }
 
+    @Transactional
     @Override
     public Optional<Customer> findById(Long id) {
         final var customerEntity = jpaCustomerRepository.findById(id);
         return customerEntity.map(CustomerRepositoryImpl::getCustomer);
     }
 
+    @Transactional
     @Override
     public List<Customer> findAll() {
         return jpaCustomerRepository.findAll()
@@ -37,6 +45,7 @@ class CustomerRepositoryImpl implements CustomerRepository {
             .toList();
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         jpaCustomerRepository.deleteById(id);
@@ -52,7 +61,27 @@ class CustomerRepositoryImpl implements CustomerRepository {
             .id(customer.getId())
             .name(customer.getName())
             .code(customer.getCode())
+            .users(getJpaUsersEntitiesId(customer))
+            .categories(getJpaCategoryEntitiesId(customer))
             .build();
+    }
+
+    private List<JpaCategoryEntity> getJpaCategoryEntitiesId(Customer customer) {
+        return customer.getCategories()
+            .stream()
+            .map(e -> JpaCategoryEntity.builder()
+                .id(e.getId())
+                .build())
+            .toList();
+    }
+
+    private List<JpaUserEntity> getJpaUsersEntitiesId(Customer customer) {
+        return customer.getUsers()
+            .stream()
+            .map(e -> JpaUserEntity.builder()
+                .id(e.getId())
+                .build())
+            .toList();
     }
 
     private static Customer getCustomer(JpaCustomerEntity jpaCustomerEntity) {
@@ -60,6 +89,33 @@ class CustomerRepositoryImpl implements CustomerRepository {
             .id(jpaCustomerEntity.getId())
             .name(jpaCustomerEntity.getName())
             .code(jpaCustomerEntity.getCode())
+            .users(getUsers(jpaCustomerEntity))
+            .categories(getCategories(jpaCustomerEntity))
             .build();
+    }
+
+    private static List<Category> getCategories(JpaCustomerEntity jpaCustomerEntity) {
+        return jpaCustomerEntity.getCategories()
+            .stream()
+            .map(e -> Category.builder()
+                .id(e.getId())
+                .title(e.getTitle())
+                .description(e.getDescription())
+                .isDefault(e.getIsDefault())
+                .build())
+            .toList();
+    }
+
+    private static List<Users> getUsers(JpaCustomerEntity jpaCustomerEntity) {
+        return jpaCustomerEntity.getUsers()
+            .stream()
+            .map(e -> Users.builder()
+                .id(e.getId())
+                .role(e.getRole())
+                .name(e.getName())
+                .email(e.getEmail())
+                .phone(e.getPhone())
+                .build())
+            .toList();
     }
 }

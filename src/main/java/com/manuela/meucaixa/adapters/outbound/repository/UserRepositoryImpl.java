@@ -85,12 +85,12 @@ class UserRepositoryImpl implements UserRepository {
             .email(e.getEmail())
             .phone(e.getPhone())
             .customer(e.getCustomer() != null
-                    ? Customer.builder()
-                    .id(e.getCustomer().getId())
-                    .name(e.getCustomer().getName())
-                    .code(e.getCustomer().getCode())
-                    .build()
-                    : null)
+                ? Customer.builder()
+                .id(e.getCustomer().getId())
+                .name(e.getCustomer().getName())
+                .code(e.getCustomer().getCode())
+                .build()
+                : null)
             .build();
     }
 }

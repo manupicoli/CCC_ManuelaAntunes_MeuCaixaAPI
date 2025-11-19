@@ -5,11 +5,14 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 class UserController implements UserControllerApi {
 
     private final LoginUseCase loginUseCase;
+    private final UpdateUserUseCase updateUserUseCase;
     private final CreateUserUseCase createUserUseCase;
     private final GetUserDetailsUseCase getUserDetailsUseCase;
 
@@ -26,5 +29,10 @@ class UserController implements UserControllerApi {
     @Override
     public GetUserDetailsResponse getUserDetails() {
         return getUserDetailsUseCase.execute();
+    }
+
+    @Override
+    public void updateUser(final String id, final UpdateUserRequest request) {
+        updateUserUseCase.execute(UUID.fromString(id), request);
     }
 }

@@ -1,14 +1,13 @@
 package com.manuela.meucaixa.adapters.outbound.keycloak;
 
+import com.manuela.meucaixa.application.usecase.user.UpdateUserRequest;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import static org.apache.commons.lang3.StringUtils.substringAfterLast;
 
@@ -68,6 +67,32 @@ public class KeycloakFacade {
 
         final var location = res.getHeaders().getLocation();
         return extractUserId(location);
+    }
+
+    public void updateUser(final UUID id, final UpdateUserRequest req) {
+        log.info("Updating user with id={}", id);
+
+        keycloakAdminClient.getUser(id)
+            .ifPresentOrElse(u -> {
+                keycloakAdminClient.updateUser(u.id(), UpdateKeycloakUserRequest.builder()
+                    .username(u.username())
+                    .email(u.email())
+                    .firstName(req.firstName())
+                    .lastName(req.lastName())
+                    .enabled(u.enabled())
+                    .emailVerified(u.emailVerified())
+                    .attributes(getAttributes(req, u))
+                    .build());
+                log.info("User {} successfully updated on Keycloak", u.username());
+            },
+            () -> log.warn("User {} not found", id));
+    }
+
+    private UpdateKeycloakUserRequest.KeycloakUserAttributes getAttributes(UpdateUserRequest req, GetUserResponse user) {
+        return UpdateKeycloakUserRequest.KeycloakUserAttributes.builder()
+            .phoneNumber(List.of(req.phone()))
+            .customerCode(user.attributes().customerCode())
+            .build();
     }
 
     private static UUID extractUserId(final URI location) {
