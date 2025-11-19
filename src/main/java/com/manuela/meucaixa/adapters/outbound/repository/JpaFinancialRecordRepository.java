@@ -36,4 +36,7 @@ public interface JpaFinancialRecordRepository extends JpaRepository<JpaFinancial
             AND fr.customer.code = :customerCode
     """)
     List<JpaFinancialRecordEntity> filterByPeriodAndCustomerCode(LocalDateTime start, LocalDateTime end, String customerCode);
+
+    boolean existsByCategoryIdAndCustomerCode(Long categoryId, String customerCode);
+
 }

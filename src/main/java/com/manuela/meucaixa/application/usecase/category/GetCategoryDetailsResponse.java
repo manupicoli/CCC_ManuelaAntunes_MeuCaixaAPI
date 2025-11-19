@@ -5,5 +5,6 @@ import lombok.Builder;
 @Builder
 public record GetCategoryDetailsResponse(String title,
                                          String description,
-                                         Boolean isDefault) {
+                                         Boolean isDefault,
+                                         Boolean hasRecords) {
 }

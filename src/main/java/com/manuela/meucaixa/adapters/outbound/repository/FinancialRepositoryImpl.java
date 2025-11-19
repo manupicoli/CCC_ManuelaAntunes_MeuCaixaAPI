@@ -78,6 +78,11 @@ class FinancialRepositoryImpl implements FinancialRecordRepository {
             .toList();
     }
 
+    @Override
+    public Boolean existsByCategoryIdAndCustomerCode(Long categoryId, String customerCode) {
+        return jpaFinancialRecordRepository.existsByCategoryIdAndCustomerCode(categoryId, customerCode);
+    }
+
     private JpaFinancialRecordEntity getFinancialRecordEntity(final FinancialRecord financialRecord) {
         return JpaFinancialRecordEntity.builder()
             .id(financialRecord.getId())
