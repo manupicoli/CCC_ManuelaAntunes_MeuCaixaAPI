@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -63,6 +64,18 @@ class FinancialRepositoryImpl implements FinancialRecordRepository {
             .stream()
             .map(FinancialRepositoryImpl::getFinancialRecord)
             .collect(Collectors.toList());
+    }
+
+    @Transactional
+    @Override
+    public List<FinancialRecord> filterByPeriod(final LocalDate start, final LocalDate end) {
+        final var startDateTime = start.atStartOfDay();
+        final var endDateTime = end.atTime(23, 59, 59);
+
+        return jpaFinancialRecordRepository.filterByPeriod(startDateTime, endDateTime)
+            .stream()
+            .map(FinancialRepositoryImpl::getFinancialRecord)
+            .toList();
     }
 
     private JpaFinancialRecordEntity getFinancialRecordEntity(final FinancialRecord financialRecord) {

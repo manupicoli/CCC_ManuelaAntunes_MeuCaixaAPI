@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,4 +28,11 @@ public interface JpaFinancialRecordRepository extends JpaRepository<JpaFinancial
     Page<JpaFinancialRecordEntity> search(String customerCode, String qs, Pageable pageable);
 
     List<JpaFinancialRecordEntity> findAllByCustomerCode(String customerCode);
+
+    @Query("""
+        SELECT fr FROM JpaFinancialRecordEntity fr
+        WHERE
+            COALESCE(fr.paymentDate, fr.dueDate) BETWEEN :start AND :end
+    """)
+    List<JpaFinancialRecordEntity> filterByPeriod(LocalDateTime start, LocalDateTime end);
 }
