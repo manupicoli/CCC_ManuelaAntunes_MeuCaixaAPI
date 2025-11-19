@@ -2,10 +2,12 @@ package com.manuela.meucaixa.application.service;
 
 import com.manuela.meucaixa.domain.customer.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CustomerCodeGeneratorService {
@@ -16,10 +18,13 @@ public class CustomerCodeGeneratorService {
     private final CustomerRepository customerRepository;
 
     public String generateUniqueCode() {
+        log.info("Starting unique code generation");
         String code;
         do {
             code = generateCode();
-        } while (customerRepository.findByCode(code) != null);
+        } while (customerRepository.findByCode(code).isPresent());
+
+        log.info("Finished unique code generation, code={}", code);
         return code;
     }
 

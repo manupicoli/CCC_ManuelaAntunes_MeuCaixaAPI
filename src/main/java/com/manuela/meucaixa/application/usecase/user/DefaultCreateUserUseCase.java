@@ -34,23 +34,17 @@ class DefaultCreateUserUseCase implements CreateUserUseCase {
                     req.phone(),
                     req.password());
 
-            log.info("Created new user id={}, customer={}", userId, customerCode);
-
-            final var newCustomer = Customer.builder()
-                    .code(customerCode)
-                    .name(req.companyName())
-                    .build();
-
-            final var savedCustomer = customerRepository.save(newCustomer);
+            final var savedCustomer = customerRepository.save(getCustomer(req, customerCode));
+            log.info("Created new user id={}, customer={}", userId, savedCustomer.getCode());
 
             final var newUser = Users.builder()
-                    .id(userId)
-                    .role(UserRole.ADMIN)
-                    .name(req.firstName() + " " + req.lastName())
-                    .phone(req.phone())
-                    .email(req.email())
-                    .customer(savedCustomer)
-                    .build();
+                .id(userId)
+                .role(UserRole.ADMIN)
+                .name(req.firstName() + " " + req.lastName())
+                .phone(req.phone())
+                .email(req.email())
+                .customer(savedCustomer)
+                .build();
 
             final var saved = userRepository.save(newUser);
             log.info("User={} successfully saved", saved.getId());
@@ -58,6 +52,12 @@ class DefaultCreateUserUseCase implements CreateUserUseCase {
             log.error("An error occurred while creating user", e);
             throw new DomainException("Não foi possível criar o usuário. Tente novamente mais tarde.");
         }
+    }
 
+    private Customer getCustomer(final CreateUserRequest req, final String customerCode) {
+        return Customer.builder()
+            .code(customerCode)
+            .name(req.companyName())
+            .build();
     }
 }

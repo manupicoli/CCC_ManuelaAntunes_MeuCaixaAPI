@@ -43,6 +43,8 @@ public class KeycloakFacade {
                               final String phone,
                               final String password) {
 
+        log.info("Creating user with username={}", username);
+
         final var req = CreateKeycloakUserRequest.builder()
             .email(username)
             .username(username)
@@ -62,8 +64,9 @@ public class KeycloakFacade {
             .build();
 
         final var res = keycloakAdminClient.createUser(req);
-        final var location = res.getHeaders().getLocation();
+        log.info("User successfully created on Keycloak");
 
+        final var location = res.getHeaders().getLocation();
         return extractUserId(location);
     }
 
