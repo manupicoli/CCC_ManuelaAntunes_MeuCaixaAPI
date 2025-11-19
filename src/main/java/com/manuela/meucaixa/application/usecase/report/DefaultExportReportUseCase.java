@@ -5,6 +5,7 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
+import com.manuela.meucaixa.auth.CurrentUser;
 import com.manuela.meucaixa.domain.financialrecord.FinancialRecord;
 import com.manuela.meucaixa.domain.financialrecord.FinancialRecordRepository;
 import com.manuela.meucaixa.domain.financialrecord.FinancialRecordType;
@@ -27,13 +28,14 @@ public class DefaultExportReportUseCase implements ExportReportUseCase {
 
     private static final DateTimeFormatter DATE_FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+    private final CurrentUser currentUser;
     private final FinancialRecordRepository financialRecordRepository;
 
     @Override
     public Path execute(final ExportReportRequest req) {
         log.info("Generating report");
 
-        final var records = financialRecordRepository.filterByPeriod(req.customStart(), req.customEnd());
+        final var records = financialRecordRepository.filterByPeriod(req.customStart(), req.customEnd(), currentUser.customerCode());
 
         final var incomes = records.stream()
             .filter(r -> r.getType().equals(FinancialRecordType.INCOME))

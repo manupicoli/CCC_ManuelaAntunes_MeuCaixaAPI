@@ -19,5 +19,5 @@ public interface FinancialRecordRepository {
 
     List<FinancialRecord> findAllByCustomerCode(String customerCode);
 
-    List<FinancialRecord> filterByPeriod(LocalDate start, LocalDate end);
+    List<FinancialRecord> filterByPeriod(LocalDate start, LocalDate end, String customerCode);
 }

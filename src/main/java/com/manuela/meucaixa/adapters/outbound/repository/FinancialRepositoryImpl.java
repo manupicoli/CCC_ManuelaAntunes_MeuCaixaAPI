@@ -68,11 +68,11 @@ class FinancialRepositoryImpl implements FinancialRecordRepository {
 
     @Transactional
     @Override
-    public List<FinancialRecord> filterByPeriod(final LocalDate start, final LocalDate end) {
+    public List<FinancialRecord> filterByPeriod(final LocalDate start, final LocalDate end, final String customerCode) {
         final var startDateTime = start.atStartOfDay();
         final var endDateTime = end.atTime(23, 59, 59);
 
-        return jpaFinancialRecordRepository.filterByPeriod(startDateTime, endDateTime)
+        return jpaFinancialRecordRepository.filterByPeriodAndCustomerCode(startDateTime, endDateTime, customerCode)
             .stream()
             .map(FinancialRepositoryImpl::getFinancialRecord)
             .toList();

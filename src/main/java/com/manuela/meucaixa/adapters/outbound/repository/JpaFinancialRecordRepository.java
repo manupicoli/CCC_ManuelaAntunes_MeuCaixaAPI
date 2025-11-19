@@ -32,7 +32,8 @@ public interface JpaFinancialRecordRepository extends JpaRepository<JpaFinancial
     @Query("""
         SELECT fr FROM JpaFinancialRecordEntity fr
         WHERE
-            COALESCE(fr.paymentDate, fr.dueDate) BETWEEN :start AND :end
+            (COALESCE(fr.paymentDate, fr.dueDate) BETWEEN :start AND :end)
+            AND fr.customer.code = :customerCode
     """)
-    List<JpaFinancialRecordEntity> filterByPeriod(LocalDateTime start, LocalDateTime end);
+    List<JpaFinancialRecordEntity> filterByPeriodAndCustomerCode(LocalDateTime start, LocalDateTime end, String customerCode);
 }
