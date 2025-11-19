@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
@@ -58,6 +60,8 @@ class DefaultCreateUserUseCase implements CreateUserUseCase {
         return Customer.builder()
             .code(customerCode)
             .name(req.companyName())
+            .users(new ArrayList<>())
+            .categories(new ArrayList<>())
             .build();
     }
 }

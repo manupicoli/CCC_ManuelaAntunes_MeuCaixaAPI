@@ -12,6 +12,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,6 +68,10 @@ class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     private List<JpaCategoryEntity> getJpaCategoryEntitiesId(Customer customer) {
+        if (customer.getCategories().isEmpty()) {
+            return new ArrayList<>();
+        }
+
         return customer.getCategories()
             .stream()
             .map(e -> JpaCategoryEntity.builder()
@@ -76,6 +81,10 @@ class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     private List<JpaUserEntity> getJpaUsersEntitiesId(Customer customer) {
+        if (customer.getUsers().isEmpty()) {
+            return new ArrayList<>();
+        }
+
         return customer.getUsers()
             .stream()
             .map(e -> JpaUserEntity.builder()
