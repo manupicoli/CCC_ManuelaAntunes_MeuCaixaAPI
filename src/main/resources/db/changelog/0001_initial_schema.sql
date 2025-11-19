@@ -10,7 +10,7 @@ CREATE TABLE customer (
 CREATE TABLE category (
     id BIGSERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    description TEXT NOT NULL,
+    description TEXT,
     is_default BOOLEAN DEFAULT FALSE,
     customer_id BIGINT NULL,
     CONSTRAINT fk_category_customer FOREIGN KEY(customer_id) REFERENCES customer(id)
@@ -49,13 +49,14 @@ CREATE TABLE users (
     CONSTRAINT fk_user_customer FOREIGN KEY(customer_id) REFERENCES customer(id)
 );
 
-INSERT INTO category (title, description, is_default, customer_id) VALUES
-   ('Vendas', 'Receitas obtidas com vendas de produtos', TRUE, NULL),
-   ('Prestação de serviços', 'Receitas obtidas por serviços prestados', TRUE, NULL),
-   ('Comissões', 'Receitas provenientes de comissões ou parcerias', TRUE, NULL);
+INSERT INTO category (id, title, description, is_default, customer_id) VALUES
+   (1, 'Não definido', NULL, TRUE, NULL),
+   (2, 'Vendas', 'Receitas obtidas com vendas de produtos', TRUE, NULL),
+   (3, 'Prestação de serviços', 'Receitas obtidas por serviços prestados', TRUE, NULL),
+   (4, 'Comissões', 'Receitas provenientes de comissões ou parcerias', TRUE, NULL);
 
-INSERT INTO category (title, description, is_default, customer_id) VALUES
-   ('Estoque', 'Compras de mercadorias para revenda', TRUE, NULL),
-   ('Aluguel', 'Aluguel do espaço ou escritório', TRUE, NULL),
-   ('Contas e serviços', 'Luz, água, internet, telefone e serviços gerais', TRUE, NULL),
-   ('Impostos', 'Tributos, taxas e contribuições obrigatórias', TRUE, NULL);
+INSERT INTO category (id, title, description, is_default, customer_id) VALUES
+   (5, 'Estoque', 'Compras de mercadorias para revenda', TRUE, NULL),
+   (6, 'Aluguel', 'Aluguel do espaço ou escritório', TRUE, NULL),
+   (7, 'Contas e serviços', 'Luz, água, internet, telefone e serviços gerais', TRUE, NULL),
+   (8, 'Impostos', 'Tributos, taxas e contribuições obrigatórias', TRUE, NULL);
